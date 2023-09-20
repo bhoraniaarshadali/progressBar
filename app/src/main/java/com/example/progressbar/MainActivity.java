@@ -16,7 +16,8 @@ public class MainActivity extends AppCompatActivity {
     private Button clearAllButton;
     private Button showStatusButton;
     private SharedPreferences sharedPreferences;
-    private int progress;
+    private int[] progressValues = {20, 60, 80, 100}; // Define the progress values
+    private int currentProgressIndex = 0; // Index to track current progress
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,18 +34,20 @@ public class MainActivity extends AppCompatActivity {
         // Initialize SharedPreferences
         sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
 
-        // Get the saved progress value
-        progress = sharedPreferences.getInt("progress", 0);
-        progressBar.setProgress(progress);
+        // Get the saved progress index (0 by default)
+        currentProgressIndex = sharedPreferences.getInt("progressIndex", 0);
+
+        // Set the initial progress based on the current progress index
+        progressBar.setProgress(progressValues[currentProgressIndex]);
 
         // Set an onClickListener for the Back button
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (progress > 0) {
-                    progress -= 20; // Decrease progress by 20%
-                    progressBar.setProgress(progress);
-                    saveProgress(progress);
+                if (currentProgressIndex > 0) {
+                    currentProgressIndex--; // Decrease the progress index
+                    progressBar.setProgress(progressValues[currentProgressIndex]);
+                    saveProgressIndex(currentProgressIndex);
                 }
             }
         });
@@ -53,10 +56,10 @@ public class MainActivity extends AppCompatActivity {
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (progress < 100) {
-                    progress += 20; // Increase progress by 20%
-                    progressBar.setProgress(progress);
-                    saveProgress(progress);
+                if (currentProgressIndex < progressValues.length - 1) {
+                    currentProgressIndex++; // Increase the progress index
+                    progressBar.setProgress(progressValues[currentProgressIndex]);
+                    saveProgressIndex(currentProgressIndex);
                 } else {
                     Toast.makeText(MainActivity.this, "Progress is already at 100%", Toast.LENGTH_SHORT).show();
                 }
@@ -67,9 +70,9 @@ public class MainActivity extends AppCompatActivity {
         clearAllButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                progress = 0;
-                progressBar.setProgress(progress);
-                saveProgress(progress);
+                currentProgressIndex = 0;
+                progressBar.setProgress(progressValues[currentProgressIndex]);
+                saveProgressIndex(currentProgressIndex);
                 Toast.makeText(MainActivity.this, "Status cleared", Toast.LENGTH_SHORT).show();
             }
         });
@@ -78,15 +81,16 @@ public class MainActivity extends AppCompatActivity {
         showStatusButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(MainActivity.this, "Status: " + progress + "%", Toast.LENGTH_SHORT).show();
+                int currentProgress = progressValues[currentProgressIndex];
+                Toast.makeText(MainActivity.this, "Status: " + currentProgress + "%", Toast.LENGTH_SHORT).show();
             }
         });
     }
 
-    // Helper method to save progress using SharedPreferences
-    private void saveProgress(int progress) {
+    // Helper method to save progress index using SharedPreferences
+    private void saveProgressIndex(int index) {
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putInt("progress", progress);
+        editor.putInt("progressIndex", index);
         editor.apply();
     }
 }
