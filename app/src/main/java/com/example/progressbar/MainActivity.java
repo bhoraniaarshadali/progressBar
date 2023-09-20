@@ -14,7 +14,10 @@ public class MainActivity extends AppCompatActivity {
 
     private ProgressBar progressBar;
     private SharedPreferences sharedPreferences;
-    private final int[] progressValues = {20, 60, 80, 100}; // Define the progress values
+    // ProgressConstants.java
+    public static final int[] progressValues = {20, 60, 80, 100};
+
+    // Define the progress values
     private int currentProgressIndex = 0; // Index to track current progress
 
     @Override
