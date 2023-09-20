@@ -7,7 +7,6 @@
     <ProgressBar
         android:id="@+id/progressStatusBar"
         style="@android:style/Widget.ProgressBar.Horizontal"
-        android:progressDrawable="@drawable/custome_progress_bg"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:max="100" />

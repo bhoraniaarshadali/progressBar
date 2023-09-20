@@ -1,6 +1,8 @@
 package com.example.progressbar;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -11,12 +13,8 @@ import androidx.appcompat.app.AppCompatActivity;
 public class MainActivity extends AppCompatActivity {
 
     private ProgressBar progressBar;
-    private Button backButton;
-    private Button nextButton;
-    private Button clearAllButton;
-    private Button showStatusButton;
     private SharedPreferences sharedPreferences;
-    private int[] progressValues = {20, 60, 80, 100}; // Define the progress values
+    private final int[] progressValues = {20, 60, 80, 100}; // Define the progress values
     private int currentProgressIndex = 0; // Index to track current progress
 
     @Override
@@ -26,10 +24,10 @@ public class MainActivity extends AppCompatActivity {
 
         // Initialize views
         progressBar = findViewById(R.id.progressBar);
-        backButton = findViewById(R.id.backButton);
-        nextButton = findViewById(R.id.nextButton);
-        clearAllButton = findViewById(R.id.clearAll);
-        showStatusButton = findViewById(R.id.GoBack);
+        Button backButton = findViewById(R.id.backButton);
+        Button nextButton = findViewById(R.id.nextButton);
+        Button clearAllButton = findViewById(R.id.clearAll);
+        Button showStatusButton = findViewById(R.id.GoBack);
 
         // Initialize SharedPreferences
         sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
@@ -81,8 +79,8 @@ public class MainActivity extends AppCompatActivity {
         showStatusButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int currentProgress = progressValues[currentProgressIndex];
-                Toast.makeText(MainActivity.this, "Status: " + currentProgress + "%", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(MainActivity.this, ProgressStatusActivity.class);
+                startActivity(intent);
             }
         });
     }
