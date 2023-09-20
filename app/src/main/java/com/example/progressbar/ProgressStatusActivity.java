@@ -6,7 +6,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import androidx.appcompat.app.AppCompatActivity;
-import com.example.progressbar.MainActivity;
 
 public class ProgressStatusActivity extends AppCompatActivity {
 
@@ -22,14 +21,12 @@ public class ProgressStatusActivity extends AppCompatActivity {
         progressBar = findViewById(R.id.progressStatusBar);
         backButton1 = findViewById(R.id.backButton);
 
-        // Set the progress
-// Retrieve the progress index from SharedPreferences
+        // Retrieve the progress index from SharedPreferences
         SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
         int progressIndex = sharedPreferences.getInt("progressIndex", 0);
 
-// Set the progress on the progress bar based on the index
+        // Set the progress on the progress bar based on the index
         progressBar.setProgress(MainActivity.progressValues[progressIndex]);
-
 
         backButton1.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {

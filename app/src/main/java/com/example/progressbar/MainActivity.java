@@ -2,7 +2,6 @@ package com.example.progressbar;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -14,10 +13,9 @@ public class MainActivity extends AppCompatActivity {
 
     private ProgressBar progressBar;
     private SharedPreferences sharedPreferences;
-    // ProgressConstants.java
-    public static final int[] progressValues = {20, 60, 80, 100};
 
     // Define the progress values
+    public static final int[] progressValues = {20, 60, 80, 100};
     private int currentProgressIndex = 0; // Index to track current progress
 
     @Override
