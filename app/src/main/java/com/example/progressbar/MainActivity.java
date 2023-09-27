@@ -15,7 +15,7 @@ public class MainActivity extends AppCompatActivity {
     private SharedPreferences sharedPreferences;
 
     // Define the progress values
-    public static final int[] progressValues = {20, 60, 80, 100};
+    public static final int[] progressValues = {0, 20, 60, 80, 100};
     private int currentProgressIndex = 0; // Index to track current progress
 
     @Override
